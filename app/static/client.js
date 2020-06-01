@@ -30,6 +30,7 @@ function analyze() {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
       console.log(response);
+      console.log(response["prob"]);
       el("result-label").innerHTML = `Result = ${response["result"]} `;
       el("probability-label").innerHTML = `Probability = ${response["prob"]} `;
       
