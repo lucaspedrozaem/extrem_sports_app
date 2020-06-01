@@ -62,9 +62,13 @@ async def analyze(request):
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)
     proba =  str(prediction[2]).replace("tensor(", "").replace(")", "").replace(" ", "").split(",")
-    proba.sort(reverse=True)
-    proba = proba[0]
-    return JSONResponse({'result': str(prediction[0]), 'prob': proba})
+    proba_final = []
+    for p in proba:
+        proba_final.append(float(p))
+        
+    proba_final.sort(reverse=True)
+    proba_final = proba_final[0]
+    return JSONResponse({'result': str(prediction[0]), 'prob': proba_final})
 
 
 if __name__ == '__main__':
