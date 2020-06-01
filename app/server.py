@@ -61,7 +61,8 @@ async def analyze(request):
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)
-    return JSONResponse({'result': str(prediction[0]), 'prob': str(prediction[2]["tensor"])})
+    proba =  str(prediction[2]).replace("tensor(", "").replace(")", "").replace(" ", "").split(",")
+    return JSONResponse({'result': str(prediction[0]), 'prob': proba})
 
 
 if __name__ == '__main__':
